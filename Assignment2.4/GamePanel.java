@@ -119,7 +119,6 @@ public class GamePanel extends JPanel implements Runnable {
 
             if (delta >= 1) {
                 update();
-                checkAndEndGame();
                 repaint();
                 delta--;
 
@@ -130,6 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
                     e.printStackTrace();
                 }
             }
+            checkAndEndGame();
         }
     }
 
@@ -227,6 +227,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void changeTurn() {
+
+        boolean yellowTurn = false;
+        JOptionPane.showMessageDialog(this, (yellowTurn ? "Blue" : "Yellow")+ " turn's is over. "+ (!yellowTurn ? "Blue" : "Yellow")+ "'s turn starts now.");
+
         if (currentColor == YELLOW) {
             currentColor = BLUE;
             flipBoard = true;
@@ -294,10 +298,10 @@ public class GamePanel extends JPanel implements Runnable {
 
         // If either Sun is missing, end the game
         if (!yellowSunExists || !blueSunExists) {
-            gameThread = null;
             // Show a dialog box to announce i) the game end ii) which sun is captured iii)
             // who is the winner
             JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins!");
+            gameThread = null;
         }
     }
 }
