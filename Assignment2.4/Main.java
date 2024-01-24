@@ -17,12 +17,10 @@ public class Main {
         JPanel mainMenu = new JPanel(new BorderLayout());
         mainMenu.setPreferredSize(new Dimension(400, 300)); // Set preferred size
 
-        
         JLabel titleLabel = new JLabel("Talabia Chess", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 24)); 
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         mainMenu.add(titleLabel, BorderLayout.NORTH);
 
-        
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Add padding
 

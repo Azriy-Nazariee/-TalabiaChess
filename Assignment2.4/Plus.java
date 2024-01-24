@@ -26,7 +26,8 @@ public class Plus extends Piece {
     }
 
     private boolean isPathClear(int targetCol, int targetRow) {
-        // Check if there are no pieces in the path (excluding the start and end squares)
+        // Check if there are no pieces in the path (excluding the start and end
+        // squares)
         if (targetCol == preCol) {
             // Vertical movement
             int startRow = Math.min(preRow, targetRow) + 1;

@@ -1,12 +1,12 @@
 public class HourGlass extends Piece {
-    public HourGlass(int color, int col, int row){
+    public HourGlass(int color, int col, int row) {
         super(color, col, row);
 
-        if(color == GamePanel.YELLOW){
+        if (color == GamePanel.YELLOW) {
             image = getImage("res/YHourGlass");
         }
 
-        else{
+        else {
             image = getImage("res/BHourGlass");
         }
     }
@@ -15,7 +15,7 @@ public class HourGlass extends Piece {
         if (isWithinBoard(targetCol, targetRow)) {
             int colDiff = Math.abs(targetCol - preCol);
             int rowDiff = Math.abs(targetRow - preRow);
-    
+
             // Check if the move forms a 3x2 L shape
             if ((colDiff == 1 && rowDiff == 2) || (colDiff == 2 && rowDiff == 1)) {
                 // Check if the destination square is a valid square for the move
@@ -24,7 +24,7 @@ public class HourGlass extends Piece {
                 }
             }
         }
-    
+
         return false;
     }
 }

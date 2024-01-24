@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 public class GamePanel extends JPanel implements Runnable {
     private int turnCounter = 0;
 
@@ -104,87 +103,83 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     @Override
-public void run() {
-    double drawInterval = 100000000 / FPS;
-    double delta = 0;
-    long lastTime = System.nanoTime();
-    long currentTime;
+    public void run() {
+        double drawInterval = 100000000 / FPS;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
 
-    while (gameThread != null) {
-        currentTime = System.nanoTime();
-        delta += (currentTime - lastTime) / drawInterval;
-        lastTime = currentTime;
+        while (gameThread != null) {
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
+            lastTime = currentTime;
 
-        if (delta >= 1) {
-            update();
-            checkAndEndGame();
-            repaint();
-            delta--;
+            if (delta >= 1) {
+                update();
+                checkAndEndGame();
+                repaint();
+                delta--;
 
-            try {
-                // This to stop pieces flickering 
-                Thread.sleep(10); 
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    // This to stop pieces flickering
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
-}
 
-private void update() {
-    // Mouse pressed
-    if (mouseAction.pressed) {
-        if (activePiece == null) {
-            
-            for (Piece piece : otherpieces) {
-                if (piece.color == currentColor &&
-                        piece.col == mouseAction.x / Board.SQUARE_SIZE &&
-                        piece.row == mouseAction.y / Board.SQUARE_SIZE) {
-                    activePiece = piece;
-                    return;
+    private void update() {
+        // Mouse pressed
+        if (mouseAction.pressed) {
+            if (activePiece == null) {
+
+                for (Piece piece : otherpieces) {
+                    if (piece.color == currentColor &&
+                            piece.col == mouseAction.x / Board.SQUARE_SIZE &&
+                            piece.row == mouseAction.y / Board.SQUARE_SIZE) {
+                        activePiece = piece;
+                        return;
+                    }
                 }
-            }
-        } else {
-            // If the player is holding a piece, simulate the move
-            simulate();
-        }
-    }
-
-    
-    if (!mouseAction.pressed && activePiece != null) {
-        if (activePiece != null) {
-            if (validSquare) {
-
-                
-
-                // Update position if a piece is captured
-                copyPieces(otherpieces, pieces);
-                activePiece.updatePosition();
-
-                // Check for piece transformations after 2 turns
-                if (++turnCounter == 2) {
-                    transformPieces();
-                    turnCounter = 0; 
-                }
-
-                changeTurn();
-
             } else {
-                // Restore original position
-                copyPieces(otherpieces, pieces);
-
-                activePiece.resetPosition();
-                activePiece = null;
-
+                // If the player is holding a piece, simulate the move
+                simulate();
             }
         }
+
+        if (!mouseAction.pressed && activePiece != null) {
+            if (activePiece != null) {
+                if (validSquare) {
+
+                    // Update position if a piece is captured
+                    copyPieces(otherpieces, pieces);
+                    activePiece.updatePosition();
+
+                    // Check for piece transformations after 2 turns
+                    if (++turnCounter == 2) {
+                        transformPieces();
+                        turnCounter = 0;
+                    }
+
+                    changeTurn();
+
+                } else {
+                    // Restore original position
+                    copyPieces(otherpieces, pieces);
+
+                    activePiece.resetPosition();
+                    activePiece = null;
+
+                }
+            }
+        }
+
     }
-
-}
-
 
     private void transformPieces() {
-        
+
         for (int i = 0; i < pieces.size(); i++) {
             Piece piece = pieces.get(i);
 
@@ -197,7 +192,6 @@ private void update() {
             }
         }
 
-        
         copyPieces(pieces, otherpieces);
     }
 
@@ -241,10 +235,10 @@ private void update() {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-    
+
         // Board
         board.draw(g2);
-    
+
         // PIECES
         for (int i = 0; i < otherpieces.size(); i++) {
             Piece p = otherpieces.get(i);
@@ -252,21 +246,21 @@ private void update() {
                 p.draw(g2);
             }
         }
-    
+
         // Null check activePiece
         if (activePiece != null) {
             if (canMove) {
                 g2.setColor(Color.green);
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.7f));
-    
+
                 int col = activePiece.col * Board.SQUARE_SIZE;
                 int row = activePiece.row * Board.SQUARE_SIZE;
-    
+
                 g2.fillRect(col, row, Board.SQUARE_SIZE, Board.SQUARE_SIZE);
-    
+
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             }
-    
+
             // Draw the active piece only if it's not null and has a valid image
             if (activePiece.image != null) {
                 activePiece.draw(g2);
@@ -277,7 +271,7 @@ private void update() {
     private void checkAndEndGame() {
         boolean yellowSunExists = false;
         boolean blueSunExists = false;
-    
+
         for (Piece piece : otherpieces) {
             if (piece instanceof Sun) {
                 if (piece.color == YELLOW) {
@@ -287,12 +281,13 @@ private void update() {
                 }
             }
         }
-    
+
         // If either Sun is missing, end the game
         if (!yellowSunExists || !blueSunExists) {
             gameThread = null;
-            // Show a dialog box to announce i) the game end ii) which sun is captured iii) who is the winner
+            // Show a dialog box to announce i) the game end ii) which sun is captured iii)
+            // who is the winner
             JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins!");
         }
     }
-}    
+}
