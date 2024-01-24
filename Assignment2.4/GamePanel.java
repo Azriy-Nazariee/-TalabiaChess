@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -117,6 +117,7 @@ public void run() {
 
         if (delta >= 1) {
             update();
+            checkAndEndGame();
             repaint();
             delta--;
 
@@ -178,6 +179,7 @@ private void update() {
             }
         }
     }
+
 }
 
 
@@ -269,6 +271,28 @@ private void update() {
             if (activePiece.image != null) {
                 activePiece.draw(g2);
             }
+        }
+    }
+
+    private void checkAndEndGame() {
+        boolean yellowSunExists = false;
+        boolean blueSunExists = false;
+    
+        for (Piece piece : otherpieces) {
+            if (piece instanceof Sun) {
+                if (piece.color == YELLOW) {
+                    yellowSunExists = true;
+                } else if (piece.color == BLUE) {
+                    blueSunExists = true;
+                }
+            }
+        }
+    
+        // If either Sun is missing, end the game
+        if (!yellowSunExists || !blueSunExists) {
+            gameThread = null;
+            // Show a dialog box to announce i) the game end ii) which sun is captured iii) who is the winner
+            JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins!");
         }
     }
 }    
