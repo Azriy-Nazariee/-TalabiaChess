@@ -36,6 +36,9 @@ public class GamePanel extends JPanel implements Runnable {
     boolean canMove;
     boolean validSquare;
 
+    //Flipped Indicator
+    private boolean flipBoard = false;
+
     public GamePanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.black);
@@ -226,8 +229,10 @@ public class GamePanel extends JPanel implements Runnable {
     private void changeTurn() {
         if (currentColor == YELLOW) {
             currentColor = BLUE;
+            flipBoard = true;
         } else {
             currentColor = YELLOW;
+            flipBoard = false;
         }
         activePiece = null;
     }
@@ -237,7 +242,12 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D) g;
 
         // Board
-        board.draw(g2);
+        if (flipBoard) {
+            board.drawFlipped(g2);
+        } else {
+            board.draw(g2);
+        }
+        //board.draw(g2);
 
         // PIECES
         for (int i = 0; i < otherpieces.size(); i++) {

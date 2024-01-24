@@ -24,4 +24,20 @@ public class Board {
             }
         }
     }
+
+    public void drawFlipped(Graphics2D g2) {
+        int c = 0;
+        for (int row = MAX_ROW - 1; row >= 0; row--) {
+            for (int col = MAX_COL - 1; col >= 0; col--) {
+                if (c == 0) {
+                    g2.setColor(Color.white);
+                    c = 1;
+                } else {
+                    g2.setColor(Color.gray);
+                    c = 0;
+                }
+                g2.fillRect(col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE);
+            }
+        }
+    }
 }
