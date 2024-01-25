@@ -10,6 +10,7 @@ public class Piece {
     public int color;
     public Piece GotAPiece;
     public boolean flipped = false;
+    public boolean isReversed = false;
 
     public Piece(int color, int col, int row) {
         this.color = color;

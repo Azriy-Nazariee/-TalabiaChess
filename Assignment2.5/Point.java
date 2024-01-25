@@ -1,10 +1,8 @@
 public class Point extends Piece {
 
-    private boolean isReversed = false;
-
-    public Point(int color, int col, int row) {
+    public Point(int color, int col, int row,boolean isReversed) {
         super(color, col, row);
-
+        this.isReversed = isReversed;
         if (color == GamePanel.YELLOW) {
             image = getImage("res/YPoint");
         }
@@ -15,7 +13,8 @@ public class Point extends Piece {
     }
 
     public boolean canMove(int targetCol, int targetRow) {
-        if ((color == GamePanel.YELLOW && preRow == 0) || (color == GamePanel.BLUE && preRow == 5)) {
+        if ((color == GamePanel.YELLOW && preRow == 0) || (color == GamePanel.YELLOW && preRow == 5) 
+            || (color == GamePanel.BLUE && preRow == 0) || (color == GamePanel.BLUE && preRow == 5)) {
             isReversed = true;
         }
         
