@@ -229,4 +229,14 @@ public class Piece {
     public void draw(Graphics2D g2) {
         g2.drawImage(image, x, y, Board.SQUARE_SIZE, Board.SQUARE_SIZE, null);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s,%d,%d,%d,%b",
+                this.getClass().getSimpleName(),
+                this.color,
+                this.col,
+                this.row,
+                this.flipped);
+    }
 }

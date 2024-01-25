@@ -57,13 +57,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setPieces() {
         // Yellow
-        pieces.add(new Point(YELLOW, 0, 4, false));
-        pieces.add(new Point(YELLOW, 1, 4, false));
-        pieces.add(new Point(YELLOW, 2, 4, false));
-        pieces.add(new Point(YELLOW, 3, 4, false));
-        pieces.add(new Point(YELLOW, 4, 4, false));
-        pieces.add(new Point(YELLOW, 5, 4, false));
-        pieces.add(new Point(YELLOW, 6, 4, false));
+        pieces.add(new Point(YELLOW, 0, 4, false, false));
+        pieces.add(new Point(YELLOW, 1, 4, false, false));
+        pieces.add(new Point(YELLOW, 2, 4, false, false));
+        pieces.add(new Point(YELLOW, 3, 4, false, false));
+        pieces.add(new Point(YELLOW, 4, 4, false, false));
+        pieces.add(new Point(YELLOW, 5, 4, false, false));
+        pieces.add(new Point(YELLOW, 6, 4, false, false));
 
         pieces.add(new Plus(YELLOW, 0, 5));
         pieces.add(new Plus(YELLOW, 6, 5));
@@ -77,13 +77,13 @@ public class GamePanel extends JPanel implements Runnable {
         pieces.add(new Sun(YELLOW, 3, 5));
 
         // Blue
-        pieces.add(new Point(BLUE, 0, 1, false));
-        pieces.add(new Point(BLUE, 1, 1, false));
-        pieces.add(new Point(BLUE, 2, 1, false));
-        pieces.add(new Point(BLUE, 3, 1, false));
-        pieces.add(new Point(BLUE, 4, 1, false));
-        pieces.add(new Point(BLUE, 5, 1, false));
-        pieces.add(new Point(BLUE, 6, 1, false));
+        pieces.add(new Point(BLUE, 0, 1, false, false));
+        pieces.add(new Point(BLUE, 1, 1, false, false));
+        pieces.add(new Point(BLUE, 2, 1, false, false));
+        pieces.add(new Point(BLUE, 3, 1, false, false));
+        pieces.add(new Point(BLUE, 4, 1, false, false));
+        pieces.add(new Point(BLUE, 5, 1, false, false));
+        pieces.add(new Point(BLUE, 6, 1, false, false));
 
         pieces.add(new Plus(BLUE, 0, 0));
         pieces.add(new Plus(BLUE, 6, 0));
@@ -285,6 +285,11 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public SaveGame saveGame() {
+        ArrayList<Piece> savedPieces = new ArrayList<>(otherpieces);
+        return new SaveGame(turnCounter, flipBoard, savedPieces);
+    }
+
     private void checkAndEndGame() {
         boolean yellowSunExists = false;
         boolean blueSunExists = false;
@@ -315,7 +320,7 @@ public class GamePanel extends JPanel implements Runnable {
             Piece piece = pieces.get(i);
 
             if (piece instanceof Point) {
-                pieces.set(i, new Point(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r'),piece.isReversed));
+                pieces.set(i, new Point(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r'),piece.isReversed, pieceFlipped));
                 piece = pieces.get(i);
                 piece.flipped = pieceFlipped;
             } else if (piece instanceof Plus) {

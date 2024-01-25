@@ -1,15 +1,26 @@
 public class Point extends Piece {
 
-    public Point(int color, int col, int row,boolean isReversed) {
+    public Point(int color, int col, int row,boolean isReversed, boolean isFlipBoard) {
         super(color, col, row);
         this.isReversed = isReversed;
-        if (color == GamePanel.YELLOW) {
-            image = getImage("res/YPoint");
+        if(isFlipBoard){
+            if (color == GamePanel.YELLOW) {
+                image = getImage("res/YPointR");
+            }
+    
+            else {
+                image = getImage("res/BPointR");
+            }
+        } else{
+            if (color == GamePanel.YELLOW) {
+                image = getImage("res/YPoint");
+            }
+    
+            else {
+                image = getImage("res/BPoint");
+            }
         }
-
-        else {
-            image = getImage("res/BPoint");
-        }
+        
     }
 
     public boolean canMove(int targetCol, int targetRow) {
