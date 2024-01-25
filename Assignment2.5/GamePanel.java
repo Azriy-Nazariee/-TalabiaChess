@@ -287,7 +287,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public SaveGame saveGame() {
         ArrayList<Piece> savedPieces = new ArrayList<>(otherpieces);
-        return new SaveGame(turnCounter, flipBoard, savedPieces);
+        return new SaveGame(turnCounter, flipBoard, currentColor, savedPieces);
     }
 
     private void checkAndEndGame() {
