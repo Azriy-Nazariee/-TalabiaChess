@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
     // Booleans
     boolean canMove;
     boolean validSquare;
+    boolean pieceFlipped = false;
 
     //Flipped Indicator
     private boolean flipBoard = false;
@@ -308,12 +309,15 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void flipPiece() {
+        pieceFlipped = !pieceFlipped;
 
         for (int i = 0; i < pieces.size(); i++) {
             Piece piece = pieces.get(i);
 
             if (piece instanceof Point) {
                 pieces.set(i, new Point(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r')));
+                piece = pieces.get(i);
+                piece.flipped = pieceFlipped;
             } else if (piece instanceof Plus) {
                 pieces.set(i, new Plus(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r')));
             } else if (piece instanceof HourGlass) {

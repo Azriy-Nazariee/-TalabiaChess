@@ -9,6 +9,7 @@ public class Piece {
     public int col, row, preCol, preRow;
     public int color;
     public Piece GotAPiece;
+    public boolean flipped = false;
 
     public Piece(int color, int col, int row) {
         this.color = color;
