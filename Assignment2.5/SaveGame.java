@@ -8,7 +8,7 @@ public class SaveGame {
     private boolean flipBoard;
     private ArrayList<Piece> savedPieces;
 
-    public SaveGame(int turnCounter, boolean flipBoard, int currentColor,ArrayList<Piece> savedPieces) {
+    public SaveGame(int turnCounter, boolean flipBoard, int currentColor,ArrayList<Piece> savedPieces, boolean loadGame) {
         this.turnCounter = turnCounter;
         this.flipBoard = flipBoard;
         this.savedPieces = savedPieces;
@@ -32,6 +32,8 @@ public class SaveGame {
             writer.write("Turn Counter: " + turnCounter);
             writer.newLine();
             writer.write("Flip Board: " + flipBoard);
+            writer.newLine();
+            writer.write("Load Game: " + flipBoard);
             writer.newLine();
 
             // Save piece information

@@ -7,12 +7,15 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JButton;
+import java.awt.BorderLayout;
+import javax.swing.border.EmptyBorder;
 
 public class GamePanel extends JPanel implements Runnable {
     private int turnCounter = 0;
 
     public static final int WIDTH = 700;
-    public static final int HEIGHT = 700;
+    public static final int HEIGHT = 600;
     final int FPS = 60;
 
     Thread gameThread;
@@ -40,14 +43,35 @@ public class GamePanel extends JPanel implements Runnable {
     //Flipped Indicator
     private boolean flipBoard = false;
 
+    // Load Indicator
+    private boolean loadGame = false;
+
+    // JButton declaration
+    JButton saveButton;
+
     public GamePanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.black);
+        setLayout(new BorderLayout());
         addMouseMotionListener(mouseAction);
         addMouseListener(mouseAction);
 
         setPieces();
+
         copyPieces(pieces, otherpieces);
+        
+        // JButton initialization
+        saveButton = new JButton("Save Game Progress");
+        saveButton.addActionListener(e -> {
+            // save progress
+            SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, otherpieces, loadGame);
+            saveGame.saveToTxtFile("save.txt");
+            JOptionPane.showMessageDialog(this, "Game Saved!");
+        });
+
+        // Add saveButton to the panel
+
+        add(saveButton, BorderLayout.SOUTH);
     }
 
     public void launchGame() {
@@ -287,7 +311,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public SaveGame saveGame() {
         ArrayList<Piece> savedPieces = new ArrayList<>(otherpieces);
-        return new SaveGame(turnCounter, flipBoard, currentColor, savedPieces);
+        loadGame = true;
+        return new SaveGame(turnCounter, flipBoard, currentColor, savedPieces, loadGame);
     }
 
     private void checkAndEndGame() {
@@ -344,4 +369,17 @@ public class GamePanel extends JPanel implements Runnable {
             return 6 - num;
         }
     }
+
+    // public void setFlipBoard(boolean flipBoard2) {
+    //     flipBoard = flipBoard2;
+    // }
+
+    // public void setTurnCounter(int turnCounter2) {
+    //     turnCounter = turnCounter2;
+    // }
+
+	// public void setLoadGame(boolean loadGame2) {
+	// 	loadGame = loadGame2;
+	// }
+
 }
