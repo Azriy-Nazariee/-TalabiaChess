@@ -20,10 +20,14 @@ public class Point extends Piece {
     }
 
     public boolean canMove(int targetCol, int targetRow) {
-        if ((color == GamePanel.YELLOW && preRow == 0) || (color == GamePanel.YELLOW && preRow == 5) 
-            || (color == GamePanel.BLUE && preRow == 0) || (color == GamePanel.BLUE && preRow == 5)) {
+        if ((color == GamePanel.YELLOW && preRow == 0) || (color == GamePanel.BLUE && preRow == 0)) {
             isReversed = true;
+        } else if((color == GamePanel.YELLOW && preRow == 5) || (color == GamePanel.BLUE && preRow == 5)) {
+            isReversed = false;
         }
+        
+        //print 1) the color 2) prerow 3) isReversed
+        System.out.println("color: " + color + " preRow: " + preRow + " isReversed: " + isReversed);
 
         if (isWithinBoard(targetCol, targetRow) && !isSameSquare(targetCol, targetRow) && !flipped) {
             // Move forward by 1 or 2 square(s) (depending on the color)
@@ -60,13 +64,5 @@ public class Point extends Piece {
         }
 
         return false;
-    }
-
-    private boolean flippedtoNormal(int targetCol, int targetRow) {
-        //check if the point returns to the original side's end of the board
-        if ((color == GamePanel.YELLOW && targetRow == 0) ||  (color == GamePanel.BLUE && targetRow == 5)) {
-            return false; // the point is no longer reversed, hence the isReversed is false
-        }
-        return true; //the point is still reversed, hence the isReversed is true
     }
 }
