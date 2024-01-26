@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable {
     private int turnCounter = 0;
 
     public static final int WIDTH = 700;
-    public static final int HEIGHT = 600;
+    public static final int HEIGHT = 620;
     final int FPS = 60;
 
     Thread gameThread;
@@ -64,7 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
         saveButton = new JButton("Save Game Progress");
         saveButton.addActionListener(e -> {
             // save progress
-            SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, otherpieces, loadGame);
+            SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces);
             saveGame.saveToTxtFile("save.txt");
             JOptionPane.showMessageDialog(this, "Game Saved!");
         });
@@ -312,7 +312,7 @@ public class GamePanel extends JPanel implements Runnable {
     public SaveGame saveGame() {
         ArrayList<Piece> savedPieces = new ArrayList<>(otherpieces);
         loadGame = true;
-        return new SaveGame(turnCounter, flipBoard, currentColor, savedPieces, loadGame);
+        return new SaveGame(turnCounter, flipBoard, currentColor, loadGame, savedPieces);
     }
 
     private void checkAndEndGame() {
