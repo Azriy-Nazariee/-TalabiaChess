@@ -232,13 +232,12 @@ public class Piece {
 
     @Override
     public String toString() {
-        return String.format("%s,%d,%d,%d,%b,%b",
+        return String.format("%s,%d,%d,%d,%b",
                 this.getClass().getSimpleName(),
                 this.color,
                 this.col,
                 this.row,
                 // if piece is point, the isreversed info needs to be stored
-                this.isReversed,
-                this.flipped);
+                this.isReversed);
     }
 }

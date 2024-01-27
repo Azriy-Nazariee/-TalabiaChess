@@ -145,8 +145,7 @@ public class GamePanel extends JPanel implements Runnable {
         if(loadGame){
             //load game
             LoadGame loadGame = new LoadGame(this, "save.txt");
-            copyPieces(loadGame.getLoadedPieces(), pieces);
-            copyPieces(pieces, otherpieces);
+            copyPieces(loadGame.getLoadedPieces(), otherpieces);
         } else{
             setPieces();
             copyPieces(pieces, otherpieces);
