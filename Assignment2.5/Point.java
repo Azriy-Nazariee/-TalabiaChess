@@ -27,7 +27,7 @@ public class Point extends Piece {
         }
         
         //print 1) the color 2) prerow 3) isReversed
-        System.out.println("color: " + color + " preRow: " + preRow + " isReversed: " + isReversed);
+        //System.out.println("color: " + color + " preRow: " + preRow + " isReversed: " + isReversed);
 
         if (isWithinBoard(targetCol, targetRow) && !isSameSquare(targetCol, targetRow) && !flipped) {
             // Move forward by 1 or 2 square(s) (depending on the color)

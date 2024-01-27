@@ -7,11 +7,13 @@ public class SaveGame {
     private int turnCounter;
     private boolean flipBoard;
     private ArrayList<Piece> savedPieces;
+    private boolean loadGame;
 
     public SaveGame(int turnCounter, boolean flipBoard, int currentColor, boolean loadGame, ArrayList<Piece> savedPieces) {
         this.turnCounter = turnCounter;
         this.flipBoard = flipBoard;
         this.savedPieces = savedPieces;
+        this.loadGame = loadGame;
     }
 
     public int getTurnCounter() {
@@ -33,12 +35,12 @@ public class SaveGame {
             writer.newLine();
             writer.write("Flip Board: " + flipBoard);
             writer.newLine();
-            writer.write("Load Game: " + flipBoard);
+            writer.write("Load Game: " + loadGame);
             writer.newLine();
 
-            // Save piece information
+            // Write each piece to a line using toString()
             for (Piece piece : savedPieces) {
-                writer.write(piece.toString()); // You need to implement the toString() method in Piece
+                writer.write(piece.toString());
                 writer.newLine();
             }
 

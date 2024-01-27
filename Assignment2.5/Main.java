@@ -42,6 +42,13 @@ public class Main {
             }
         });
 
+        loadButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadGame(window);
+            }
+        });
+
         quitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -62,5 +69,19 @@ public class Main {
         window.pack();
         window.repaint();
         gp.launchGame();
+    }
+
+    private static void loadGame(JFrame window) {
+        GamePanel load = new GamePanel();
+        LoadGame lg = new LoadGame(load, "save.txt");
+        GamePanel.pieces = lg.getLoadedPieces(); // Load the pieces immediately after creating the LoadGame object
+        load.setLoadGame(true); // Set loadGame to true
+    
+        window.getContentPane().removeAll();
+        window.add(load);
+    
+        window.pack();
+        window.repaint();
+        load.launchGame();
     }
 }

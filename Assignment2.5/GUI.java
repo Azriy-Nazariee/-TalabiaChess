@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+// No changes needed, removing the unused import statement for java.util.ArrayList
 
 public class GUI {
     public GUI() {
@@ -51,7 +52,16 @@ public class GUI {
         loadButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // code here
+                GamePanel gp = new GamePanel();
+                LoadGame lg = new LoadGame(gp, "save.txt");
+
+                lg.getLoadedPieces();
+                
+                window.getContentPane().removeAll();
+                window.add(gp);
+                window.pack();
+                window.repaint();
+                gp.launchGame();
             }
         });
 
