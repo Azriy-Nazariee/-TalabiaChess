@@ -11,6 +11,7 @@ public class LoadGame {
     private static int turnCounter;
     private static boolean flipBoard;
     private static boolean loadGame;
+    private static int currentColor;
 
     public LoadGame(GamePanel gamePanel, String filePath) {
         loadedPiecesYellow = new ArrayList<>();
@@ -24,12 +25,11 @@ public class LoadGame {
             pieces.add(piece);
         }
 
-        // print the loadgame status in loadgame class
-        System.out.println("loadgame status @ loadgame: " + loadGame);
     
         gamePanel.setLoadGame(loadGame);
         gamePanel.setTurnCounter(turnCounter);
         gamePanel.setFlipBoard(flipBoard);
+        gamePanel.setCurrentColor(currentColor);
     }
 
     public ArrayList<Piece> getLoadedPieces() {
@@ -51,6 +51,14 @@ public class LoadGame {
             line = br.readLine();
             String[] loadInfo = line.split(": ");
             loadGame = Boolean.parseBoolean(loadInfo[1].trim());
+
+            // for current color
+            line = br.readLine();
+            String[] colorInfo = line.split(": ");
+            currentColor = Integer.parseInt(colorInfo[1].trim());
+
+            // Read and discard the header line for the pieces data
+            br.readLine();
 
             // Read and parse each piece line
             while ((line = br.readLine()) != null) {
@@ -74,6 +82,12 @@ public class LoadGame {
                 } else if ("Sun".equals(pieceInfo[0])) {
                     piece = new Sun(color, col, row);
                 } 
+
+                // print out the piece info
+                // if pieces = point, print the isreversed info
+                if(pieceInfo[0].equals("Point")) {
+                    System.out.println("Points isReversed: "+ piece.isReversed);
+                }
 
                 // Add the piece to the appropriate list
                 if (color == GamePanel.YELLOW) {

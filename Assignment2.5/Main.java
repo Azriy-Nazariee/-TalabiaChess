@@ -4,12 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main {
+
+    private static JFrame window;
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 
     private static void createAndShowGUI() {
-        JFrame window = new JFrame("Talabia Chess");
+        window = new JFrame("Talabia Chess");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
 
@@ -79,9 +81,22 @@ public class Main {
     
         window.getContentPane().removeAll();
         window.add(load);
-    
+
         window.pack();
         window.repaint();
         load.launchGame();
+
+        JOptionPane.showMessageDialog(null, "Game loaded successfully!"+"\n"+"This current turn is: " + (load.currentColor == 0 ? "Yellow" : "Blue"));
+    }
+
+    // switch the window to the main menu
+    public static void switchToMainMenu() {
+        window.dispose();
+        createAndShowGUI();
+    }
+
+    //get the current window
+    public static JFrame getWindow() {
+        return window;
     }
 }

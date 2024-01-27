@@ -45,16 +45,6 @@ public class GamePanel extends JPanel implements Runnable {
     // Load Indicator
     private boolean loadGame = false;
 
-    // getter for loadGame
-    public boolean getLoadGame() {
-        return loadGame;
-    }
-
-    // setter for loadGame
-    public void setLoadGame(boolean loadGame) {
-        this.loadGame = loadGame;
-    }
-
     // JButton declaration
     JButton saveButton;
 
@@ -72,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
             SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces);
             saveGame.saveToTxtFile("save.txt");
             JOptionPane.showMessageDialog(this, "Game Saved!");
+            Main.switchToMainMenu();
         });
 
         // Add saveButton to the panel
@@ -382,12 +373,26 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void setFlipBoard(boolean flipBoard2) {
-        flipBoard = flipBoard2;
+    // setter and getter for load game mechanism
+
+    public boolean getLoadGame() {
+        return loadGame;
     }
 
-    public void setTurnCounter(int turnCounter2) {
-        turnCounter = turnCounter2;
+    public void setLoadGame(boolean loadGame) {
+        this.loadGame = loadGame;
+    }
+
+    public void setFlipBoard(boolean flipBoardSaved) {
+        flipBoard = flipBoardSaved;
+    }
+
+    public void setTurnCounter(int turnCounterSaved) {
+        turnCounter = turnCounterSaved;
+    }
+
+    public void setCurrentColor(int currentColorSaved) {
+        currentColor = currentColorSaved;
     }
 
 }

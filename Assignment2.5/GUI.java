@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-// No changes needed, removing the unused import statement for java.util.ArrayList
+import java.awt.event.WindowEvent;
 
 public class GUI {
     public GUI() {
@@ -77,5 +77,13 @@ public class GUI {
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+    }
+
+    // close the window
+    public static void close( JFrame window) {
+
+        WindowEvent winClosingEvent = new WindowEvent(window, WindowEvent.WINDOW_CLOSING);
+        Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
+
     }
 }

@@ -8,12 +8,14 @@ public class SaveGame {
     private boolean flipBoard;
     private ArrayList<Piece> savedPieces;
     private boolean loadGame;
+    private int currentColor;
 
     public SaveGame(int turnCounter, boolean flipBoard, int currentColor, boolean loadGame, ArrayList<Piece> savedPieces) {
         this.turnCounter = turnCounter;
         this.flipBoard = flipBoard;
         this.savedPieces = savedPieces;
         this.loadGame = loadGame;
+        this.currentColor = currentColor;
     }
 
     public int getTurnCounter() {
@@ -36,6 +38,12 @@ public class SaveGame {
             writer.write("Flip Board: " + flipBoard);
             writer.newLine();
             writer.write("Load Game: " + loadGame);
+            writer.newLine();
+            writer.write("Current Color: " + currentColor);
+            writer.newLine();
+
+            // Write the header line for the pieces data
+            writer.write("Type | Color | Col | Row | isReversed");
             writer.newLine();
 
             // Write each piece to a line using toString()
