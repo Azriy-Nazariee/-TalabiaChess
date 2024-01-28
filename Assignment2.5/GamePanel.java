@@ -50,6 +50,8 @@ public class GamePanel extends JPanel implements Runnable {
     JButton saveButton;
 
     public GamePanel() {
+
+        // Setting up of the game panel
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.black);
         setLayout(new BorderLayout());
@@ -63,34 +65,36 @@ public class GamePanel extends JPanel implements Runnable {
         JButton saveButton = new JButton("Save Game Progress");
         saveButton.setPreferredSize(new Dimension(100, 50));
         saveButton.addActionListener(e -> {
-            // save progress
+
+            // Save progress Button
             SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces, pieceFlipped);
             saveGame.saveToTxtFile("save.txt");
             JOptionPane.showMessageDialog(this, "Game Saved!");
 
-            // Confirmation dialog
-            int response = JOptionPane.showConfirmDialog(this, "Do you want to continue the game?", "Want to Continue?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            // Confimarion from user to continue or not
+            int response = JOptionPane.showConfirmDialog(this, "Do you want to continue the game?", "Want to Continue?",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.NO_OPTION) {
                 Main.switchToMainMenu();
-            } 
+            }
         });
 
-        // Create and configure the exit button
+        // Exit Button
         JButton exitButton = new JButton("Exit Game");
         exitButton.setPreferredSize(new Dimension(100, 50));
         exitButton.addActionListener(e -> {
-            // Confirmation dialog
-            int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit the game?", "Confirm Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            // Confimarion from user to exit or not
+            int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit the game?",
+                    "Confirm Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 Main.switchToMainMenu();
             }
         });
 
-        // Add the buttons to the panel
         buttonPanel.add(saveButton);
         buttonPanel.add(exitButton);
 
-        // Add the button panel to the main panel
         add(buttonPanel, BorderLayout.SOUTH);
 
     }
@@ -158,11 +162,9 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        if (!loadGame) {
-            // setting up the pieces
+        if (!loadGame) { // setting the pieces if the game is new
             setPieces();
         } else {
-            // if the turn is blue, their point's pieceFlipped is true
         }
         copyPieces(pieces, otherpieces);
 
@@ -282,10 +284,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void changeTurn() {
 
-        // boolean yellowTurn = false;
-        // JOptionPane.showMessageDialog(this, (yellowTurn ? "Blue" : "Yellow")+ "
-        // turn's is over. "+ (!yellowTurn ? "Blue" : "Yellow")+ "'s turn starts now.");
-
         if (currentColor == YELLOW) {
             currentColor = BLUE;
             flipBoard = true;
@@ -343,6 +341,7 @@ public class GamePanel extends JPanel implements Runnable {
         boolean yellowSunExists = false;
         boolean blueSunExists = false;
 
+        // Check if either Sun is missing
         for (Piece piece : otherpieces) {
             if (piece instanceof Sun) {
                 if (piece.color == YELLOW) {
@@ -355,8 +354,8 @@ public class GamePanel extends JPanel implements Runnable {
 
         // If either Sun is missing, end the game
         if (!yellowSunExists || !blueSunExists) {
-            // Show a dialog box to announce i) the game end ii) which sun is captured iii)
-            // who is the winner
+
+            // Show a dialog box to announce the winner
             JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins!");
             gameThread = null;
             Main.switchToMainMenu();
@@ -419,6 +418,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setPieceFlipped(boolean pieceFlippedSaved) {
         pieceFlipped = pieceFlippedSaved;
+        
         // if the pieces is points, set their flipped to true
         for (Piece piece : pieces) {
             if (piece instanceof Point) {

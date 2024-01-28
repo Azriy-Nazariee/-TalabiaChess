@@ -16,7 +16,7 @@ public class Piece {
         this.color = color;
         this.col = col;
         this.row = row;
-        
+
         x = getX(col);
         y = getY(row);
 
@@ -240,4 +240,13 @@ public class Piece {
                 // if piece is point, the isreversed info needs to be stored
                 this.isReversed);
     }
+
+    public void setFlipped(boolean flipped2) {
+        flipped = flipped2;
+    }
+
+    public void setReversed(boolean isReversed2) {
+        isReversed = isReversed2;
+    }
+
 }

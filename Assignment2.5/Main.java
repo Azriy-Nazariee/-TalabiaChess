@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class Main {
 
     private static JFrame window;
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
@@ -78,7 +79,7 @@ public class Main {
         LoadGame lg = new LoadGame(load, "save.txt");
         GamePanel.pieces = lg.getLoadedPieces(); // Load the pieces immediately after creating the LoadGame object
         load.setLoadGame(true); // Set loadGame to true
-    
+
         window.getContentPane().removeAll();
         window.add(load);
 
@@ -86,7 +87,8 @@ public class Main {
         window.repaint();
         load.launchGame();
 
-        JOptionPane.showMessageDialog(null, "Game loaded successfully!"+"\n"+"This current turn is: " + (load.currentColor == 0 ? "Yellow" : "Blue"));
+        JOptionPane.showMessageDialog(null, "Game loaded successfully!" + "\n" + "This current turn is: "
+                + (load.currentColor == 0 ? "Yellow" : "Blue"));
     }
 
     // switch the window to the main menu
@@ -95,7 +97,7 @@ public class Main {
         createAndShowGUI();
     }
 
-    //get the current window
+    // get the current window
     public static JFrame getWindow() {
         return window;
     }

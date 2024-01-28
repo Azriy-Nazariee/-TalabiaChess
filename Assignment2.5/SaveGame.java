@@ -50,21 +50,12 @@ public class SaveGame {
             writer.write("Type | Color | Col | Row | isReversed");
             writer.newLine();
 
-            System.out.println("SAVING THE GAME --------------------- "+ "\n");
             // Write each piece to a line using toString()
             for (Piece piece : savedPieces) {
-                //print the isReversed for points
-                if (piece instanceof Point) {
-                    System.out.println("Points isReversed @ saveGame: "+ piece.isReversed);
-                }
                 writer.write(piece.toString());
                 writer.newLine();
             }
-            System.out.println("\n");
-            System.out.println("Piece Flipped @ saveGame: "+ pieceFlipped);
             System.out.println("Data saved to " + filePath);
-            System.out.println("\n");
-            System.out.println("-------------------------------------- "+ "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
