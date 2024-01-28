@@ -26,9 +26,6 @@ public class Point extends Piece {
             isReversed = false;
         }
 
-        // print the pieceflipped varibale form gampanel
-        GamePanel gp = new GamePanel();
-
         // yellow movement
 
         if (isWithinBoard(targetCol, targetRow) && !isSameSquare(targetCol, targetRow) && !flipped) {
