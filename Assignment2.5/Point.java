@@ -4,6 +4,7 @@ public class Point extends Piece {
         super(color, col, row);
         this.isReversed = isReversed;
 
+        // Setting up the image
         if (isFlipBoard) {
             if (color == GamePanel.YELLOW) {
                 image = getImage(isReversed ? "res/YPoint" : "res/YPointR");
@@ -27,7 +28,6 @@ public class Point extends Piece {
         }
 
         // yellow movement
-
         if (isWithinBoard(targetCol, targetRow) && !isSameSquare(targetCol, targetRow) && !flipped) {
             // Move forward by 1 or 2 square(s) (depending on the color)
             int rowDifference = targetRow - preRow;
@@ -46,7 +46,6 @@ public class Point extends Piece {
         }
 
         // blue movement
-
         if (isWithinBoard(targetCol, targetRow) && !isSameSquare(targetCol, targetRow) && flipped) {
             // Move forward by 1 or 2 square(s) (depending on the color)
             int rowDifference = targetRow - preRow;
@@ -64,6 +63,6 @@ public class Point extends Piece {
             }
         }
 
-        return false; // this mean the piece cannot move
+        return false; // this means the points cannot move
     }
 }
