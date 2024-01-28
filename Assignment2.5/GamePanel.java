@@ -9,12 +9,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 
 public class GamePanel extends JPanel implements Runnable {
     private int turnCounter = 0;
 
     public static final int WIDTH = 700;
-    public static final int HEIGHT = 620;
+    public static final int HEIGHT = 650;
     final int FPS = 60;
 
     Thread gameThread;
@@ -39,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     boolean validSquare;
     boolean pieceFlipped = false;
 
-    //Flipped Indicator
+    // Flipped Indicator
     private boolean flipBoard = false;
 
     // Load Indicator
@@ -54,20 +55,44 @@ public class GamePanel extends JPanel implements Runnable {
         setLayout(new BorderLayout());
         addMouseMotionListener(mouseAction);
         addMouseListener(mouseAction);
-        
-        // JButton initialization
-        saveButton = new JButton("Save Game Progress");
+
+        // Create a panel for the buttons
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+
+        // Create and configure the save button
+        JButton saveButton = new JButton("Save Game Progress");
+        saveButton.setPreferredSize(new Dimension(100, 50));
         saveButton.addActionListener(e -> {
             // save progress
             SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces, pieceFlipped);
             saveGame.saveToTxtFile("save.txt");
             JOptionPane.showMessageDialog(this, "Game Saved!");
-            Main.switchToMainMenu();
+
+            // Confirmation dialog
+            int response = JOptionPane.showConfirmDialog(this, "Do you want to continue the game?", "Want to Continue?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.NO_OPTION) {
+                Main.switchToMainMenu();
+            } 
         });
 
-        // Add saveButton to the panel
+        // Create and configure the exit button
+        JButton exitButton = new JButton("Exit Game");
+        exitButton.setPreferredSize(new Dimension(100, 50));
+        exitButton.addActionListener(e -> {
+            // Confirmation dialog
+            int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit the game?", "Confirm Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.YES_OPTION) {
+                Main.switchToMainMenu();
+            }
+        });
 
-        add(saveButton, BorderLayout.SOUTH);
+        // Add the buttons to the panel
+        buttonPanel.add(saveButton);
+        buttonPanel.add(exitButton);
+
+        // Add the button panel to the main panel
+        add(buttonPanel, BorderLayout.SOUTH);
+
     }
 
     public void launchGame() {
@@ -133,13 +158,14 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        if(!loadGame){
-            //load game
+        if (!loadGame) {
+            // setting up the pieces
             setPieces();
-        }  
-        
+        } else {
+            // if the turn is blue, their point's pieceFlipped is true
+        }
         copyPieces(pieces, otherpieces);
-    
+
         while (gameThread != null) {
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
@@ -193,7 +219,7 @@ public class GamePanel extends JPanel implements Runnable {
                         transformPieces();
                         turnCounter = 0;
                     }
-
+                    // print breakpoint
                     changeTurn();
 
                 } else {
@@ -256,8 +282,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     private void changeTurn() {
 
-        //boolean yellowTurn = false;
-        //JOptionPane.showMessageDialog(this, (yellowTurn ? "Blue" : "Yellow")+ " turn's is over. "+ (!yellowTurn ? "Blue" : "Yellow")+ "'s turn starts now.");
+        // boolean yellowTurn = false;
+        // JOptionPane.showMessageDialog(this, (yellowTurn ? "Blue" : "Yellow")+ "
+        // turn's is over. "+ (!yellowTurn ? "Blue" : "Yellow")+ "'s turn starts now.");
 
         if (currentColor == YELLOW) {
             currentColor = BLUE;
@@ -281,7 +308,7 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             board.draw(g2);
         }
-        //board.draw(g2);
+        // board.draw(g2);
 
         // PIECES
         for (int i = 0; i < otherpieces.size(); i++) {
@@ -332,37 +359,38 @@ public class GamePanel extends JPanel implements Runnable {
             // who is the winner
             JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins!");
             gameThread = null;
+            Main.switchToMainMenu();
         }
     }
 
     public void flipPiece() {
-            pieceFlipped = !pieceFlipped;
+        pieceFlipped = !pieceFlipped;
 
         for (int i = 0; i < pieces.size(); i++) {
             Piece piece = pieces.get(i);
 
             if (piece instanceof Point) {
-                pieces.set(i, new Point(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r'),piece.isReversed, pieceFlipped));
+                pieces.set(i, new Point(piece.color, reverse(piece.col, 'c'), reverse(piece.row, 'r'), piece.isReversed,
+                        pieceFlipped));
                 piece = pieces.get(i);
                 piece.flipped = pieceFlipped;
             } else if (piece instanceof Plus) {
-                pieces.set(i, new Plus(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r')));
+                pieces.set(i, new Plus(piece.color, reverse(piece.col, 'c'), reverse(piece.row, 'r')));
             } else if (piece instanceof HourGlass) {
-                pieces.set(i, new HourGlass(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r')));
+                pieces.set(i, new HourGlass(piece.color, reverse(piece.col, 'c'), reverse(piece.row, 'r')));
             } else if (piece instanceof Time) {
-                pieces.set(i, new Time(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r')));
+                pieces.set(i, new Time(piece.color, reverse(piece.col, 'c'), reverse(piece.row, 'r')));
             } else if (piece instanceof Sun) {
-                pieces.set(i, new Sun(piece.color, reverse(piece.col,'c'), reverse(piece.row,'r')));
+                pieces.set(i, new Sun(piece.color, reverse(piece.col, 'c'), reverse(piece.row, 'r')));
             }
         }
         copyPieces(pieces, otherpieces);
-    } 
+    }
 
-    public int reverse(int num, char type){
-        if(type == 'r'){
+    public int reverse(int num, char type) {
+        if (type == 'r') {
             return 5 - num;
-        }
-        else{
+        } else {
             return 6 - num;
         }
     }
@@ -391,5 +419,11 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setPieceFlipped(boolean pieceFlippedSaved) {
         pieceFlipped = pieceFlippedSaved;
+        // if the pieces is points, set their flipped to true
+        for (Piece piece : pieces) {
+            if (piece instanceof Point) {
+                piece.flipped = pieceFlipped;
+            }
+        }
     }
 }
