@@ -9,13 +9,15 @@ public class SaveGame {
     private ArrayList<Piece> savedPieces;
     private boolean loadGame;
     private int currentColor;
+    private boolean pieceFlipped;
 
-    public SaveGame(int turnCounter, boolean flipBoard, int currentColor, boolean loadGame, ArrayList<Piece> savedPieces) {
+    public SaveGame(int turnCounter, boolean flipBoard, int currentColor, boolean loadGame, ArrayList<Piece> savedPieces, boolean pieceFlipped) {
         this.turnCounter = turnCounter;
         this.flipBoard = flipBoard;
         this.savedPieces = savedPieces;
         this.loadGame = loadGame;
         this.currentColor = currentColor;
+        this.pieceFlipped = pieceFlipped;
     }
 
     public int getTurnCounter() {
@@ -41,18 +43,28 @@ public class SaveGame {
             writer.newLine();
             writer.write("Current Color: " + currentColor);
             writer.newLine();
+            writer.write("Piece Flipped: " + pieceFlipped);
+            writer.newLine();
 
             // Write the header line for the pieces data
             writer.write("Type | Color | Col | Row | isReversed");
             writer.newLine();
 
+            System.out.println("SAVING THE GAME --------------------- "+ "\n");
             // Write each piece to a line using toString()
             for (Piece piece : savedPieces) {
+                //print the isReversed for points
+                if (piece instanceof Point) {
+                    System.out.println("Points isReversed @ saveGame: "+ piece.isReversed);
+                }
                 writer.write(piece.toString());
                 writer.newLine();
             }
-
+            System.out.println("\n");
+            System.out.println("Piece Flipped @ saveGame: "+ pieceFlipped);
             System.out.println("Data saved to " + filePath);
+            System.out.println("\n");
+            System.out.println("-------------------------------------- "+ "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

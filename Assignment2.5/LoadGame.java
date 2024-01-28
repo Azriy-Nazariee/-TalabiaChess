@@ -12,6 +12,7 @@ public class LoadGame {
     private static boolean flipBoard;
     private static boolean loadGame;
     private static int currentColor;
+    private static boolean pieceFlipped;
 
     public LoadGame(GamePanel gamePanel, String filePath) {
         loadedPiecesYellow = new ArrayList<>();
@@ -25,11 +26,14 @@ public class LoadGame {
             pieces.add(piece);
         }
 
-    
+        //print the pieceFlipped
+        System.out.println("Piece Flipped @ loadGame: "+ pieceFlipped);
+        
         gamePanel.setLoadGame(loadGame);
         gamePanel.setTurnCounter(turnCounter);
         gamePanel.setFlipBoard(flipBoard);
         gamePanel.setCurrentColor(currentColor);
+        gamePanel.setPieceFlipped(pieceFlipped);
     }
 
     public ArrayList<Piece> getLoadedPieces() {
@@ -57,8 +61,15 @@ public class LoadGame {
             String[] colorInfo = line.split(": ");
             currentColor = Integer.parseInt(colorInfo[1].trim());
 
+            // for piece flipped
+            line = br.readLine();
+            String[] pieceState = line.split(": ");
+            pieceFlipped = Boolean.parseBoolean(pieceState[1].trim());
+
             // Read and discard the header line for the pieces data
             br.readLine();
+            
+            System.out.println("LOADING THE GAME --------------------- "+ "\n");
 
             // Read and parse each piece line
             while ((line = br.readLine()) != null) {
@@ -86,9 +97,9 @@ public class LoadGame {
                 // print out the piece info
                 // if pieces = point, print the isreversed info
                 if(pieceInfo[0].equals("Point")) {
-                    System.out.println("Points isReversed: "+ piece.isReversed);
+                    System.out.println("Points isReversed @ loadGame: "+ piece.isReversed);
                 }
-
+                
                 // Add the piece to the appropriate list
                 if (color == GamePanel.YELLOW) {
                     loadedPiecesYellow.add(piece);
@@ -96,9 +107,12 @@ public class LoadGame {
                     loadedPiecesBlue.add(piece);
                 }
             }
-
+            System.out.println("\n");
+            //print the pieceFlipped
+            System.out.println("Piece Flipped @ loadGame: "+ pieceFlipped);
             System.out.println("Game loaded successfully!");
-
+            System.out.println("\n");
+            System.out.println("-------------------------------------- "+ "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

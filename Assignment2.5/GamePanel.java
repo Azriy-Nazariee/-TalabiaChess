@@ -59,7 +59,7 @@ public class GamePanel extends JPanel implements Runnable {
         saveButton = new JButton("Save Game Progress");
         saveButton.addActionListener(e -> {
             // save progress
-            SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces);
+            SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces, pieceFlipped);
             saveGame.saveToTxtFile("save.txt");
             JOptionPane.showMessageDialog(this, "Game Saved!");
             Main.switchToMainMenu();
@@ -133,15 +133,13 @@ public class GamePanel extends JPanel implements Runnable {
         long lastTime = System.nanoTime();
         long currentTime;
 
-        if(loadGame){
+        if(!loadGame){
             //load game
-            LoadGame loadGame = new LoadGame(this, "save.txt");
-            copyPieces(loadGame.getLoadedPieces(), otherpieces);
-        } else{
             setPieces();
-            copyPieces(pieces, otherpieces);
-        }
-
+        }  
+        
+        copyPieces(pieces, otherpieces);
+    
         while (gameThread != null) {
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
@@ -314,10 +312,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public SaveGame saveGame() {
-        return new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces);
-    }
-
     private void checkAndEndGame() {
         boolean yellowSunExists = false;
         boolean blueSunExists = false;
@@ -342,7 +336,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void flipPiece() {
-        pieceFlipped = !pieceFlipped;
+            pieceFlipped = !pieceFlipped;
 
         for (int i = 0; i < pieces.size(); i++) {
             Piece piece = pieces.get(i);
@@ -395,4 +389,7 @@ public class GamePanel extends JPanel implements Runnable {
         currentColor = currentColorSaved;
     }
 
+    public void setPieceFlipped(boolean pieceFlippedSaved) {
+        pieceFlipped = pieceFlippedSaved;
+    }
 }

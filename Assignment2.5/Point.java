@@ -25,14 +25,17 @@ public class Point extends Piece {
         } else if((color == GamePanel.YELLOW && preRow == 5) || (color == GamePanel.BLUE && preRow == 5)) {
             isReversed = false;
         }
-        
-        //print 1) the color 2) prerow 3) isReversed
-        //System.out.println("color: " + color + " preRow: " + preRow + " isReversed: " + isReversed);
+        System.out.println("color: " +color+", flipped: " + flipped);
+        //print the pieceflipped varibale form gampanel
+        GamePanel gp = new GamePanel();
+        System.out.println("Current pieceFlipped: " + gp.pieceFlipped);
+        // yellow movement
 
         if (isWithinBoard(targetCol, targetRow) && !isSameSquare(targetCol, targetRow) && !flipped) {
             // Move forward by 1 or 2 square(s) (depending on the color)
             int rowDifference = targetRow - preRow;
             int colDifference = targetCol - preCol;
+            System.out.println("(1) color: " + color +  " isReversed: " + isReversed + " flipped: " + flipped + " rowDifference: " + rowDifference + " colDifference: " + colDifference); 
             if ((color == GamePanel.YELLOW && !isReversed && (rowDifference == -1 || rowDifference == -2)) ||
                     (color == GamePanel.YELLOW && isReversed && (rowDifference == 1 || rowDifference == 2)) ||
                     (color == GamePanel.BLUE && !isReversed && (rowDifference == 1 || rowDifference == 2)) ||
@@ -46,10 +49,14 @@ public class Point extends Piece {
             }
         }
 
+        // blue movement
+
         if (isWithinBoard(targetCol, targetRow) && !isSameSquare(targetCol, targetRow) && flipped) {
             // Move forward by 1 or 2 square(s) (depending on the color)
             int rowDifference = targetRow - preRow;
             int colDifference = targetCol - preCol;
+            //if points, print the
+            System.out.println("(2) color: " + color +  " isReversed: " + isReversed + " flipped: " + flipped + " rowDifference: " + rowDifference + " colDifference: " + colDifference); 
             if ((color == GamePanel.YELLOW && !isReversed && (rowDifference == 1 || rowDifference == 2)) ||
                     (color == GamePanel.YELLOW && isReversed && (rowDifference == -1 || rowDifference == -2)) ||
                     (color == GamePanel.BLUE && !isReversed && (rowDifference == -1 || rowDifference == -2)) ||
@@ -63,6 +70,6 @@ public class Point extends Piece {
             }
         }
 
-        return false;
+        return false; // this mean the piece cannot move
     }
 }
