@@ -3,7 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,7 +17,7 @@ public class Main {
     private static void createAndShowGUI() {
         window = new JFrame("Talabia Chess");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
+
         try {
             Image icon = ImageIO.read(new File("Assignment2.5/res/icon.png"));
             window.setIconImage(icon);
