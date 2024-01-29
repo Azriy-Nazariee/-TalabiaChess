@@ -97,8 +97,12 @@ public class Main {
         window.repaint();
         load.launchGame();
 
-        JOptionPane.showMessageDialog(null, "Game loaded successfully!" + "\n" + "This current turn is: "
-                + (load.currentColor == 0 ? "Yellow" : "Blue"));
+        ImageIcon oriLoad = new ImageIcon("Assignment2.5/res/load.png");
+        Image originalLoad = oriLoad.getImage();
+        Image scaledLoad = originalLoad.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledLoad);
+        JOptionPane.showMessageDialog(null, "Your saved game progress is loaded successfully!" + "\n" + "This current turn is: "
+                + (load.currentColor == 0 ? "Yellow" : "Blue"), "Load Game", JOptionPane.INFORMATION_MESSAGE, scaledIcon);
     }
 
     // switch the window to the main menu

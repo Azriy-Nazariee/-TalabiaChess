@@ -70,7 +70,12 @@ public class GamePanel extends JPanel implements Runnable {
             // Save progress Button
             SaveGame saveGame = new SaveGame(turnCounter, flipBoard, currentColor, loadGame, otherpieces, pieceFlipped);
             saveGame.saveToTxtFile("save.txt");
-            JOptionPane.showMessageDialog(this, "Game Saved!");
+            ImageIcon oriSave = new ImageIcon("Assignment2.5/res/save.png");
+            Image originalSave = oriSave.getImage();
+            Image scaledSave = originalSave.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledSave);
+            JOptionPane.showMessageDialog(this, "Game Saved Successfully!,", "Game Saved",
+                    JOptionPane.INFORMATION_MESSAGE,scaledIcon);
 
             // Confimarion from user to continue or not
             int response = JOptionPane.showConfirmDialog(this, "Do you want to continue the game?",
@@ -361,12 +366,10 @@ public class GamePanel extends JPanel implements Runnable {
         if (!yellowSunExists || !blueSunExists) {
 
             // Show a dialog box to announce the winner
-            // print which sun is missing
-            ImageIcon originalIcon = new ImageIcon("Assignment2.5/res/Win.png");
-            Image originalImage = originalIcon.getImage();
-            Image scaledImage = originalImage.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-            ImageIcon scaledIcon = new ImageIcon(scaledImage);
-            System.out.println((!yellowSunExists ? "Yellow" : "Blue") + " sun is missing!");
+            ImageIcon oriWin = new ImageIcon("Assignment2.5/res/Win.png");
+            Image originalWin = oriWin.getImage();
+            Image scaledIWin = originalWin.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledIWin);
             JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins this game!", "Congratulations!",
                     JOptionPane.INFORMATION_MESSAGE,scaledIcon);
             gameThread = null;
