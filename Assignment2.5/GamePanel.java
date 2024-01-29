@@ -188,7 +188,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-        checkAndEndGame();
     }
 
     private void update() {
@@ -225,6 +224,7 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                     // print breakpoint
                     changeTurn();
+                    checkAndEndGame();
 
                 } else {
                     // Restore original position
