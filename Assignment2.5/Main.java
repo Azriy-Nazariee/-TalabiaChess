@@ -1,7 +1,11 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Main {
 
@@ -14,7 +18,13 @@ public class Main {
     private static void createAndShowGUI() {
         window = new JFrame("Talabia Chess");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
+        
+        try {
+            Image icon = ImageIO.read(new File("Assignment2.5/res/icon.png"));
+            window.setIconImage(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Main Menu
         JPanel mainMenu = new JPanel(new BorderLayout());
@@ -23,6 +33,7 @@ public class Main {
         JLabel titleLabel = new JLabel("Talabia Chess", SwingConstants.CENTER);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         mainMenu.add(titleLabel, BorderLayout.NORTH);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(50, 50, 0, 50)); // Add padding
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50)); // Add padding
