@@ -71,12 +71,11 @@ public class LoadGame {
                 int color = Integer.parseInt(pieceInfo[1]);
                 int col = Integer.parseInt(pieceInfo[2]);
                 int row = Integer.parseInt(pieceInfo[3]);
-                boolean isReversed = Boolean.parseBoolean(pieceInfo[4]);
-
                 // Add the piece to the appropriate list
                 Piece piece = null; // Initialize piece variable
 
                 if ("Point".equals(pieceInfo[0])) {
+                    boolean isReversed = Boolean.parseBoolean(pieceInfo[4]);
                     piece = new Point(color, col, row, isReversed, flipBoard);
                 } else if ("Time".equals(pieceInfo[0])) {
                     piece = new Time(color, col, row);

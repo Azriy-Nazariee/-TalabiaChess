@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+
 public class GamePanel extends JPanel implements Runnable {
     private int turnCounter = 0;
 
@@ -96,7 +97,6 @@ public class GamePanel extends JPanel implements Runnable {
         buttonPanel.add(exitButton);
 
         add(buttonPanel, BorderLayout.SOUTH);
-
     }
 
     public void launchGame() {
@@ -187,8 +187,8 @@ public class GamePanel extends JPanel implements Runnable {
                     e.printStackTrace();
                 }
             }
-            checkAndEndGame();
         }
+        checkAndEndGame();
     }
 
     private void update() {
@@ -236,7 +236,6 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-
     }
 
     private void transformPieces() {
@@ -339,7 +338,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void checkAndEndGame() {
+    private void checkAndEndGame() {        
         boolean yellowSunExists = false;
         boolean blueSunExists = false;
 
@@ -361,6 +360,8 @@ public class GamePanel extends JPanel implements Runnable {
         if (!yellowSunExists || !blueSunExists) {
 
             // Show a dialog box to announce the winner
+            //print which sun is missing
+            System.out.println((!yellowSunExists ? "Yellow" : "Blue") + " sun is missing!");
             JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins!");
             gameThread = null;
             Main.switchToMainMenu();
