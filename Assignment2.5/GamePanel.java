@@ -163,6 +163,8 @@ public class GamePanel extends JPanel implements Runnable {
         long currentTime;
 
         if (!loadGame) { // setting the pieces if the game is new
+            //clear the board
+            pieces.clear();
             setPieces();
         } else {
         }
@@ -341,8 +343,11 @@ public class GamePanel extends JPanel implements Runnable {
         boolean yellowSunExists = false;
         boolean blueSunExists = false;
 
+        // Create a copy of otherpieces
+        ArrayList<Piece> otherpiecesChecking = new ArrayList<>(otherpieces);
+
         // Check if either Sun is missing
-        for (Piece piece : otherpieces) {
+        for (Piece piece : otherpiecesChecking) {
             if (piece instanceof Sun) {
                 if (piece.color == YELLOW) {
                     yellowSunExists = true;
