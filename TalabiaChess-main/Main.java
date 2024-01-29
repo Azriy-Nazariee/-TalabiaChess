@@ -1,3 +1,10 @@
+//  Made and Edited By :
+//  Mohd Azriy Akmalhazim Bin Mohd Nazariee
+//  Hakeem Bin Aminudin
+//  Muhammad Haikal Afiq Bin Rafingei
+//  Muhammad Amir Adib Bin Mohd Aminuddin
+//  Kisshend Thamotharam A/L Ravintheran
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

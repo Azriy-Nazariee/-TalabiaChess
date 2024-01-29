@@ -1,3 +1,9 @@
+//  Made and Edited By :
+//  Muhammad Amir Adib Bin Mohd Aminuddin
+//  Mohd Azriy Akmalhazim Bin Mohd Nazariee
+//  Kisshend Thamotharam A/L Ravintheran
+//  Muhammad Haikal Afiq Bin Rafingei
+  
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

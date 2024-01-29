@@ -1,3 +1,7 @@
+//  Made and Edited By :
+//  Muhammad Amir Adib Bin Mohd Aminuddin
+//  Hakeem Bin Aminuddin
+
 public class Sun extends Piece {
     public Sun(int color, int col, int row) {
         super(color, col, row);

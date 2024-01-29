@@ -1,3 +1,10 @@
+//  Made and Edited By :
+//  Muhammad Amir Adib Bin Mohd Aminuddin
+//  Kisshend Thamotharam A/L Ravintheran
+//  Mohd Azriy Akmalhazim Bin Mohd Nazariee
+//  Muhammad Haikal Afiq Bin Rafingei
+//  Hakeem Bin Aminudin
+
 public class Point extends Piece {
 
     public Point(int color, int col, int row, boolean isReversed, boolean isFlipBoard) {

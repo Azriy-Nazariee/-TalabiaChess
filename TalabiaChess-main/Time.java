@@ -1,3 +1,7 @@
+//  Made and Edited By :
+//  Muhammad Amir Adib Bin Mohd Aminuddin
+//  Kisshend Thamotharam A/L Ravintheran
+
 public class Time extends Piece {
     public Time(int color, int col, int row) {
         super(color, col, row);

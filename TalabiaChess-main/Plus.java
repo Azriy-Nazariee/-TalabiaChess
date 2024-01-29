@@ -1,3 +1,8 @@
+//  Made and Edited By :
+//  Muhammad Amir Adib Bin Mohd Aminuddin
+//  Muhammad Haikal Afiq Bin Rafingei
+//  Kisshend Thamotharam A/L Ravintheran
+
 public class Plus extends Piece {
     public Plus(int color, int col, int row) {
         super(color, col, row);

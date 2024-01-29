@@ -1,3 +1,6 @@
+//  Made and Edited By :
+//  Muhammad Amir Adib Bin Mohd Aminuddin
+
 public class HourGlass extends Piece {
     public HourGlass(int color, int col, int row) {
         super(color, col, row);
