@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-
-
+import javax.swing.ImageIcon;
+import java.awt.Image;
 public class GamePanel extends JPanel implements Runnable {
     private int turnCounter = 0;
 
@@ -73,7 +73,8 @@ public class GamePanel extends JPanel implements Runnable {
             JOptionPane.showMessageDialog(this, "Game Saved!");
 
             // Confimarion from user to continue or not
-            int response = JOptionPane.showConfirmDialog(this, "Do you want to continue the game?", "Want to Continue?",
+            int response = JOptionPane.showConfirmDialog(this, "Do you want to continue the game?",
+                    "Want to Continue?",
                     JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.NO_OPTION) {
                 Main.switchToMainMenu();
@@ -81,12 +82,12 @@ public class GamePanel extends JPanel implements Runnable {
         });
 
         // Exit Button
-        JButton exitButton = new JButton("Exit Game");
+        JButton exitButton = new JButton("Exit Current Game");
         exitButton.setPreferredSize(new Dimension(100, 50));
         exitButton.addActionListener(e -> {
 
             // Confimarion from user to exit or not
-            int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit the game?",
+            int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to exit the current game?",
                     "Confirm Exit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (response == JOptionPane.YES_OPTION) {
                 Main.switchToMainMenu();
@@ -163,7 +164,7 @@ public class GamePanel extends JPanel implements Runnable {
         long currentTime;
 
         if (!loadGame) { // setting the pieces if the game is new
-            //clear the board
+            // clear the board
             pieces.clear();
             setPieces();
         } else {
@@ -338,7 +339,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    private void checkAndEndGame() {        
+    private void checkAndEndGame() {
         boolean yellowSunExists = false;
         boolean blueSunExists = false;
 
@@ -360,9 +361,14 @@ public class GamePanel extends JPanel implements Runnable {
         if (!yellowSunExists || !blueSunExists) {
 
             // Show a dialog box to announce the winner
-            //print which sun is missing
+            // print which sun is missing
+            ImageIcon originalIcon = new ImageIcon("Assignment2.5/res/Win.png");
+            Image originalImage = originalIcon.getImage();
+            Image scaledImage = originalImage.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            ImageIcon scaledIcon = new ImageIcon(scaledImage);
             System.out.println((!yellowSunExists ? "Yellow" : "Blue") + " sun is missing!");
-            JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins!");
+            JOptionPane.showMessageDialog(this, "Game Over! " + (!yellowSunExists ? "Blue" : "Yellow") + " wins this game!", "Congratulations!",
+                    JOptionPane.INFORMATION_MESSAGE,scaledIcon);
             gameThread = null;
             Main.switchToMainMenu();
         }
@@ -424,7 +430,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setPieceFlipped(boolean pieceFlippedSaved) {
         pieceFlipped = pieceFlippedSaved;
-        
+
         // if the pieces is points, set their flipped to true
         for (Piece piece : pieces) {
             if (piece instanceof Point) {
